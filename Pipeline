@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('code') {
+            steps {
+                git branch:"main", url: "https://github.com/saikrishnaresuk/Docker.git"
+            }
+        }
+        stage('build') {
+            steps {
+                sh "docker build -t dhoni ."
+            }
+        }
+        stage('creating a container') {
+        steps {
+            sh "docker run -itd --name MSD -p 777:80 dhoni"
+            }
+        }    
+    }
+}
